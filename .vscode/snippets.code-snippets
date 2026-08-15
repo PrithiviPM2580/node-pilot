@@ -1,0 +1,207 @@
+{
+  "Next.js Component": {
+    "prefix": "nc",
+    "body": [
+      "export default function ${1:${TM_FILENAME_BASE/(^|-)(.)/${2:/upcase}/g}}() {",
+      "  return (",
+      "    <${2:div}>${3}</${2}>",
+      "  );",
+      "}"
+    ],
+    "description": "Create a Next.js React component"
+  },
+  "Next.js Component Client": {
+    "prefix": "ncc",
+    "body": [
+      "\"use client\";",
+      "",
+      "export default function ${1:${TM_FILENAME_BASE/(^|-)(.)/${2:/upcase}/g}}() {",
+      "  return (",
+      "    <${2:div}>${3}</${2}>",
+      "  );",
+      "}"
+    ],
+    "description": "Create a Next.js client component"
+  },
+  "Next.js Async Component": {
+    "prefix": "nca",
+    "body": [
+      "export default async function ${1:${TM_FILENAME_BASE/(^|-)(.)/${2:/upcase}/g}}() {",
+      "  return (",
+      "    <${2:div}>${3}</${2}>",
+      "  );",
+      "}"
+    ],
+    "description": "Create an async Next.js React component"
+  },
+  "Next.js Component with Props": {
+    "prefix": "ncp",
+    "body": [
+      "interface ${1:${TM_FILENAME_BASE/(^|-)(.)/${2:/upcase}/g}}Props {",
+      "  $0",
+      "}",
+      "",
+      "export default function ${1}({}: ${1}Props) {",
+      "  return (",
+      "    <${2:div}>${3}</${2}>",
+      "  );",
+      "}"
+    ],
+    "description": "Create a Next.js React component with filename-based props"
+  },
+  "Next.js Client Component with Props": {
+    "prefix": "nccp",
+    "body": [
+      "\"use client\";",
+      "",
+      "interface ${1:${TM_FILENAME_BASE/(^|-)(.)/${2:/upcase}/g}}Props {",
+      "  $0",
+      "}",
+      "",
+      "export default function ${1}({}: ${1}Props) {",
+      "  return (",
+      "    <${2:div}>${3}</${2}>",
+      "  );",
+      "}"
+    ],
+    "description": "Create a Next.js client component with filename-based props"
+  },
+  "Next.js Async Component with Props": {
+    "prefix": "ncap",
+    "body": [
+      "interface ${1:${TM_FILENAME_BASE/(^|-)(.)/${2:/upcase}/g}}Props {",
+      "  $0",
+      "}",
+      "",
+      "export default async function ${1}({}: ${1}Props) {",
+      "  return (",
+      "    <${2:div}>${3}</${2}>",
+      "  );",
+      "}"
+    ],
+    "description": "Create an async Next.js React component with filename-based props"
+  },
+  "Next.js Layout": {
+    "prefix": "nl",
+    "body": [
+      "interface LayoutProps {",
+      "  children: React.ReactNode;",
+      "}",
+      "",
+      "export default function Layout({ children }: LayoutProps) {",
+      "  return (",
+      "    <${2:div}>",
+      "      {children}",
+      "    </${2}>",
+      "  );",
+      "}"
+    ],
+    "description": "Create a Next.js layout"
+  },
+  "Next.js Client Layout": {
+    "prefix": "ncl",
+    "body": [
+      "\"use client\";",
+      "",
+      "interface LayoutProps {",
+      "  children: React.ReactNode;",
+      "}",
+      "",
+      "export default function Layout({ children }: LayoutProps) {",
+      "  return (",
+      "    <${1:div}>",
+      "      {children}",
+      "    </${1}>",
+      "  );",
+      "}"
+    ],
+    "description": "Create a Next.js client layout"
+  },
+  "Next.js Async Layout": {
+    "prefix": "nla",
+    "body": [
+      "interface LayoutProps {",
+      "  children: React.ReactNode;",
+      "}",
+      "",
+      "export default async function Layout({ children }: LayoutProps) {",
+      "  return (",
+      "    <${2:div}>",
+      "      {children}",
+      "    </${2}>",
+      "  );",
+      "}"
+    ],
+    "description": "Create an async Next.js layout"
+  },
+  "React useState": {
+    "prefix": "ust",
+    "body": [
+      "const [${1:value}, set${1/(.*)/${1:/capitalize}/}] = useState(${2:initialValue});$0"
+    ],
+    "description": "Create a React useState"
+  },
+  "React useEffect": {
+    "prefix": "uef",
+    "body": ["useEffect(() => {", "  $1", "}, [${2}]);$0"],
+    "description": "Create a React useEffect"
+  },
+  "Try Catch": {
+    "prefix": "tc",
+    "body": [
+      "try {",
+      "  $1",
+      "} catch (error) {",
+      "  console.error(error);",
+      "  $0",
+      "}"
+    ],
+    "description": "Create try catch block"
+  },
+  "Async Function": {
+    "prefix": "afn",
+    "body": ["async function ${1:functionName}(${2}) {", "  $0", "}"],
+    "description": "Create an async function"
+  },
+  "Next.js Server Action": {
+    "prefix": "nsa",
+    "body": [
+      "\"use server\";",
+      "",
+      "export async function ${1:actionName}(${2}) {",
+      "  $0",
+      "}"
+    ],
+    "description": "Create a Next.js server action"
+  },
+  "Next.js API Route": {
+    "prefix": "napi",
+    "body": [
+      "import { NextResponse } from \"next/server\";",
+      "",
+      "export async function GET() {",
+      "  try {",
+      "    $1",
+      "    return NextResponse.json(${2:{}});",
+      "  } catch (error) {",
+      "    console.error(error);",
+      "    return NextResponse.json(",
+      "      { error: \"Internal Server Error\" },",
+      "      { status: 500 }",
+      "    );",
+      "  }",
+      "}"
+    ],
+    "description": "Create a Next.js GET API route"
+  },
+  "Console Log": {
+    "prefix": "cl",
+    "body": ["console.log(${1});$0"],
+    "description": "Create console.log"
+  },
+  "Console Error": {
+    "prefix": "ce",
+    "body": ["console.error(${1});$0"],
+    "description": "Create console.error"
+  }
+}
