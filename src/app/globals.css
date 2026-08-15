@@ -192,6 +192,10 @@
   }
 }
 
+.react-flow__node.selected #base-node {
+  @apply ring-3 ring-muted-foreground/25 shadow-lg;
+}
+
 @utility flex-center {
   @apply flex items-center justify-center;
 }
