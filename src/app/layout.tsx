@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { DM_Sans, Lora, IBM_Plex_Mono } from "next/font/google";
 import { TRPCReactProvider } from "@/trpc/client";
-import "./globals.css";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/toast";
+import "./globals.css";
 
 const fontSans = DM_Sans({
   subsets: ["latin"],
@@ -33,8 +34,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <TRPCReactProvider>
-          {children}
-          <Toaster />
+          <TooltipProvider>
+            {children}
+            <Toaster />
+          </TooltipProvider>
         </TRPCReactProvider>
       </body>
     </html>
