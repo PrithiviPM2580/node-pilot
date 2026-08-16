@@ -23,6 +23,9 @@
     "enabled": true,
     "rules": {
       "recommended": true,
+      "complexity": {
+        "noUselessFragments": "off"
+      },
       "correctness": {
         "useExhaustiveDependencies": "off"
       },
