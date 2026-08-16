@@ -7,14 +7,14 @@ import { toast } from "@/components/ui/toast";
 import { useTRPC } from "@/trpc/client";
 import { useWorkflowsParams } from "./use-workflows-params";
 
-export const useSuspenseWorkflows = () => {
+export function useSuspenseWorkflows() {
   const trpc = useTRPC();
   const [params] = useWorkflowsParams();
 
   return useSuspenseQuery(trpc.workflows.getMany.queryOptions(params));
-};
+}
 
-export const useCreateWorkflow = () => {
+export function useCreateWorkflow() {
   const trpc = useTRPC();
   const queryClient = useQueryClient();
 
@@ -35,4 +35,31 @@ export const useCreateWorkflow = () => {
       },
     }),
   );
-};
+}
+
+export function useRemoveWorkflow() {
+  const trpc = useTRPC();
+
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    trpc.workflows.remove.mutationOptions({
+      onSuccess: (data) => {
+        toast.add({
+          type: "success",
+          description: `Workflow ${data.name} removed`,
+        });
+        queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
+        queryClient.invalidateQueries(
+          trpc.workflows.getOne.queryOptions({ id: data.id }),
+        );
+      },
+      onError: (error) => {
+        toast.add({
+          type: "error",
+          description: `Error removing workflow: ${error.message}`,
+        });
+      },
+    }),
+  );
+}
