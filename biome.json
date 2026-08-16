@@ -34,7 +34,9 @@
       },
       "a11y": {
         "useSemanticElements": "off",
-        "noLabelWithoutControl": "off"
+        "noLabelWithoutControl": "off",
+        "useFocusableInteractive": "off",
+        "noNoninteractiveTabindex": "off"
       },
       "style": {
         "noNonNullAssertion": "off"
