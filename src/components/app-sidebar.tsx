@@ -19,10 +19,12 @@ import { menuItems } from "@/utils/constants";
 import { CreditCardIcon, LogOutIcon, StarIcon } from "lucide-react";
 import { toast } from "./ui/toast";
 import { Button } from "./ui/button";
+import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription";
 
 export default function AppSidebar() {
   const router = useRouter();
   const pathname = usePathname();
+  const { hasActiveSubscription, isLoading } = useHasActiveSubscription();
 
   function handleSignOut() {
     authClient.signOut({
@@ -94,24 +96,26 @@ export default function AppSidebar() {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              tooltip="Upgrade to Pro"
-              className="gap-x-4 h-10 px-4"
-              onClick={() => {}}
-              render={
-                <Button>
-                  <StarIcon className="size-4" />
-                  <span>Upgrade to Pro</span>
-                </Button>
-              }
-            />
-          </SidebarMenuItem>
+          {!hasActiveSubscription && !isLoading && (
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                tooltip="Upgrade to Pro"
+                className="gap-x-4 h-10 px-4"
+                onClick={() => authClient.checkout({ slug: "pro" })}
+                render={
+                  <Button>
+                    <StarIcon className="size-4" />
+                    <span>Upgrade to Pro</span>
+                  </Button>
+                }
+              />
+            </SidebarMenuItem>
+          )}
           <SidebarMenuItem>
             <SidebarMenuButton
               tooltip="Billing Portal"
               className="gap-x-4 h-10 px-4"
-              onClick={() => {}}
+              onClick={() => authClient.customer.portal()}
               render={
                 <Button>
                   <CreditCardIcon className="size-4" />
