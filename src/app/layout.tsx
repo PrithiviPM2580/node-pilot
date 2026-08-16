@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { DM_Sans, Lora, IBM_Plex_Mono } from "next/font/google";
-import { TRPCReactProvider } from "@/trpc/client";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { DM_Sans, IBM_Plex_Mono, Lora } from "next/font/google";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Toaster } from "@/components/ui/toast";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { TRPCReactProvider } from "@/trpc/client";
 import "./globals.css";
 
 const fontSans = DM_Sans({
@@ -34,10 +35,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <TRPCReactProvider>
-          <TooltipProvider>
-            {children}
-            <Toaster />
-          </TooltipProvider>
+          <NuqsAdapter>
+            <TooltipProvider>
+              {children}
+              <Toaster />
+            </TooltipProvider>
+          </NuqsAdapter>
         </TRPCReactProvider>
       </body>
     </html>

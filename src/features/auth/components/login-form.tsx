@@ -1,8 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "@/components/ui/toast";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,11 +23,9 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { loginSchema, LoginSchema } from "../schema/auth";
-import Image from "next/image";
-import Link from "next/link";
+import { toast } from "@/components/ui/toast";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
+import { type LoginSchema, loginSchema } from "../schema/auth";
 
 export default function LoginForm() {
   const router = useRouter();

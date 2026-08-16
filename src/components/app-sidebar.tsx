@@ -1,5 +1,6 @@
 "use client";
 
+import { CreditCardIcon, LogOutIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -14,12 +15,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription";
 import { authClient } from "@/lib/auth-client";
 import { menuItems } from "@/utils/constants";
-import { CreditCardIcon, LogOutIcon, StarIcon } from "lucide-react";
-import { toast } from "./ui/toast";
 import { Button } from "./ui/button";
-import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription";
+import { toast } from "./ui/toast";
 
 export default function AppSidebar() {
   const router = useRouter();
