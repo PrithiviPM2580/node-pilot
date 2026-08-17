@@ -94,3 +94,29 @@ export function useUpdateWorkflowName() {
     }),
   );
 }
+
+export function useUpdateWorkflow() {
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    trpc.workflows.update.mutationOptions({
+      onSuccess: (data) => {
+        toast.add({
+          type: "success",
+          description: `Workflow ${data.name} saved`,
+        });
+        queryClient.invalidateQueries(trpc.workflows.getMany.queryOptions({}));
+        queryClient.invalidateQueries(
+          trpc.workflows.getOne.queryOptions({ id: data.id }),
+        );
+      },
+      onError: (error) => {
+        toast.add({
+          type: "error",
+          description: `Error to save workflow: ${error.message}`,
+        });
+      },
+    }),
+  );
+}

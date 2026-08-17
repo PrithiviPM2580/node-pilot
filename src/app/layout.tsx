@@ -1,3 +1,4 @@
+import { Provider } from "jotai";
 import type { Metadata } from "next";
 import { DM_Sans, IBM_Plex_Mono, Lora } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -37,8 +38,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <TRPCReactProvider>
           <NuqsAdapter>
             <TooltipProvider>
-              {children}
-              <Toaster />
+              <Provider>
+                {children}
+                <Toaster />
+              </Provider>
             </TooltipProvider>
           </NuqsAdapter>
         </TRPCReactProvider>
