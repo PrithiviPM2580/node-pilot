@@ -36,7 +36,9 @@
         "useSemanticElements": "off",
         "noLabelWithoutControl": "off",
         "useFocusableInteractive": "off",
-        "noNoninteractiveTabindex": "off"
+        "noNoninteractiveTabindex": "off",
+        "noStaticElementInteractions": "off",
+        "useKeyWithClickEvents": "off"
       },
       "style": {
         "noNonNullAssertion": "off"

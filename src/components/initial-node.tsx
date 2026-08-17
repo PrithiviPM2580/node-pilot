@@ -3,22 +3,26 @@
 import type { NodeProps } from "@xyflow/react";
 import { PlusIcon } from "lucide-react";
 import { memo, useState } from "react";
+import NodeSelector from "./node-selector";
 import { PlaceholderNode } from "./react-flow/placeholder-node";
 import WorkflowNode from "./workflow-node";
 
 export const InitialNode = memo((props: NodeProps) => {
+  const [selectorOpen, setSelectorOpen] = useState<boolean>(false);
   return (
-    <WorkflowNode
-      showToolbar={true}
-      name="Initial Node"
-      description="Click to add a node"
-    >
-      <PlaceholderNode {...props} onClick={() => {}}>
-        <div className="cursor-pointer flex-center">
-          <PlusIcon />
-        </div>
-      </PlaceholderNode>
-    </WorkflowNode>
+    <NodeSelector open={selectorOpen} onOpenChange={setSelectorOpen}>
+      <WorkflowNode
+        showToolbar={true}
+        name="Initial Node"
+        description="Click to add a node"
+      >
+        <PlaceholderNode {...props} onClick={() => setSelectorOpen(true)}>
+          <div className="cursor-pointer flex-center">
+            <PlusIcon />
+          </div>
+        </PlaceholderNode>
+      </WorkflowNode>
+    </NodeSelector>
   );
 });
 
