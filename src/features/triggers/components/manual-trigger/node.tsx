@@ -16,7 +16,11 @@ export const ManualTriggerNode = memo((props: NodeProps) => {
   const status = "initial";
   return (
     <>
-      <ManualTriggerDialog open={dialogOpen} onOpenChange={setDialogOpen} />
+      <ManualTriggerDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        onSubmit={() => {}}
+      />
       <BaseTriggerNode
         {...props}
         status={status}

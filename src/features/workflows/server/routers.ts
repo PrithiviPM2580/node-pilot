@@ -1,6 +1,8 @@
+import { TRPCError } from "@trpc/server";
 import type { Edge, Node } from "@xyflow/react";
 import { generateSlug } from "random-word-slugs";
 import { NodeType } from "@/generated/prisma/enums";
+import { inngest } from "@/inngest/client";
 import prisma from "@/lib/prisma-client";
 import {
   createTRPCRouter,
@@ -15,6 +17,32 @@ import {
 } from "../schema/workflow";
 
 export const workflowsRouter = createTRPCRouter({
+  execute: protectedProcedure
+    .input(workflowParamsSchema)
+    .mutation(async ({ ctx, input }) => {
+      const workflow = await prisma.workflow.findUniqueOrThrow({
+        where: {
+          id: input.id,
+          userId: ctx.auth.user.id,
+        },
+      });
+
+      if (!workflow) {
+        return new TRPCError({
+          code: "NOT_FOUND",
+          message: "Workflow not found",
+        });
+      }
+
+      await inngest.send({
+        name: "workflows/execute.workflow",
+        data: {
+          workflowId: workflow.id,
+        },
+      });
+
+      return workflow;
+    }),
   create: premiumProcedure.mutation(async ({ ctx }) => {
     return prisma.workflow.create({
       data: {
