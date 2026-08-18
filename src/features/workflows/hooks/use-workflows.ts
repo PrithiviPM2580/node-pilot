@@ -120,3 +120,24 @@ export function useUpdateWorkflow() {
     }),
   );
 }
+
+export function useExecuteWorkflow() {
+  const trpc = useTRPC();
+
+  return useMutation(
+    trpc.workflows.execute.mutationOptions({
+      onSuccess: (data) => {
+        toast.add({
+          type: "success",
+          description: `Workflow ${data.name} executed`,
+        });
+      },
+      onError: (error) => {
+        toast.add({
+          type: "error",
+          description: `Error to execute workflow: ${error.message}`,
+        });
+      },
+    }),
+  );
+}

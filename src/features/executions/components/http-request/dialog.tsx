@@ -23,57 +23,58 @@ import {
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  type ExecuteFormSchema,
-  executionFormSchema,
+  type HTTPRequestFormSchema,
+  httpRequestFormSchema,
 } from "@/features/executions/schema/execution";
 
 interface DialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (values: ExecuteFormSchema) => void;
-  defaultEndpoint?: string;
-  defaultMethod?: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-  defaultBody?: string;
+  onSubmit: (values: HTTPRequestFormSchema) => void;
+  defaultValues?: Partial<HTTPRequestFormSchema>;
 }
 
 export default function HttpRequestDialog({
   open,
   onOpenChange,
   onSubmit,
-  defaultEndpoint = "",
-  defaultMethod = "GET",
-  defaultBody = "",
+  defaultValues = {},
 }: DialogProps) {
-  const form = useForm<ExecuteFormSchema>({
-    resolver: zodResolver(executionFormSchema),
+  const form = useForm<HTTPRequestFormSchema>({
+    resolver: zodResolver(httpRequestFormSchema),
     defaultValues: {
-      endpoint: defaultEndpoint,
-      method: defaultMethod,
-      body: defaultBody,
+      endpoint: defaultValues.endpoint || "",
+      method: defaultValues.method || "GET",
+      body: defaultValues.body || "",
     },
   });
 
   useEffect(() => {
     if (open) {
       form.reset({
-        endpoint: defaultEndpoint,
-        method: defaultMethod,
-        body: defaultBody,
+        endpoint: defaultValues.endpoint || "",
+        method: defaultValues.method || "GET",
+        body: defaultValues.body || "",
       });
     }
-  }, [open, defaultBody, defaultEndpoint, defaultMethod, form]);
+  }, [
+    open,
+    defaultValues.body,
+    defaultValues.endpoint,
+    defaultValues.method,
+    form,
+  ]);
 
   const watchmethod = form.watch("method");
   const showBodyField = ["POST", "PUT", "PATCH"].includes(watchmethod);
 
-  function submitForm(data: ExecuteFormSchema) {
+  function submitForm(data: HTTPRequestFormSchema) {
     onSubmit(data);
     onOpenChange(false);
   }
